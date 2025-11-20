@@ -102,9 +102,12 @@ class Personagem:
         print(f"{self.nome} | Vida: {self.vida} | Ataque: {self.ataque} | Arma: {arma_nome}")
 
     def atacar(self, alvo):
-        dano = self.ataque_total()
-        print(f"{self.nome} atacou {alvo.nome} causando {dano} de dano!")
+        dado = Dado(6)
+        bonus_sorte = dado.rolar()
+        dano = self.ataque_total() + bonus_sorte
+        print(f"{self.nome} atacou {alvo.nome} causando {self.ataque_total()} + sorte {bonus_sorte} = {dano} de dano!")
         alvo.receber_dano(dano)
+
 
     def usar_pocao(self, pocao):
         if pocao in self.inventario.itens:
@@ -170,6 +173,23 @@ class Monstro:
 
     def esta_vivo(self):
         return self.vida > 0
+    
+class Orc(Monstro):
+    def __init__(self):
+        super().__init__("Orc", 90, 25)
+
+    def atacar(self, alvo):
+        dado = Dado(6)
+        rolagem = dado.rolar()
+        if rolagem == 6:
+            dano = self.ataque * 2
+            print(f"{self.nome} executa um GOLPE CRÍTICO! Dano dobrado: {dano}")
+        else:
+            dano = self.ataque
+            print(f"{self.nome} atacou {alvo.nome} causando {dano} de dano.")
+        alvo.receber_dano(dano)
+
+    
 
 # Fábrica de monstros padrão
 def criar_goblin():
@@ -237,8 +257,12 @@ mago.usar_habilidade(0, goblin)      # índice 0: Bola de Fogo
 print('\nStatus final do Goblin:')
 goblin.status()
 
-dado = Dado()
-print("Dado rolado:", dado.rolar())
-print('\nStatus final do Goblin:')
-goblin.status()
+orc = Orc()
+print("\nStatus inicial do Orc:")
+orc.status()
+
+print("\nOrc ataca Guerreiro:")
+orc.atacar(guerreiro)
+
+
 
