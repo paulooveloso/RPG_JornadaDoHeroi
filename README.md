@@ -7,6 +7,8 @@
   Adiciona inventário, poções e interação maior entre personagens (como uso de itens e dano automático ao atacar/alvo).
 
 /nivel_avancado/main.py 
+Sistema completo com habilidades especiais, fator de sorte que é (dado), sistema de batalha em turnos (um-contra-um e equipes), 
+gerenciamento de inventário, uso de habilidades, golpes críticos, e batalhas entre grupos.
 
 ## O que foi feito
 
